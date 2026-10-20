@@ -19,7 +19,6 @@
             color: #ea580c;
             font-weight: bold;
         }
-        /* アニメーション用 */
         .completed-item {
             opacity: 0.6;
             text-decoration: line-through;
@@ -39,7 +38,6 @@
                     🎽 駅伝2.4km ダッシュボード
                 </h1>
             </div>
-            <!-- プログレスサークル風カウンター -->
             <div class="bg-white/20 backdrop-blur-md rounded-2xl p-2.5 text-center min-w-[70px]">
                 <div class="text-xs opacity-90 font-medium">達成度</div>
                 <div id="progress-percent" class="text-xl font-bold leading-none mt-1">0%</div>
@@ -53,11 +51,11 @@
         <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 grid grid-cols-3 gap-2 text-center">
             <div class="p-2 bg-slate-50 rounded-xl">
                 <div class="text-[10px] text-slate-500 font-bold uppercase">ハーフ記録</div>
-                <div class="text-sm font-bold text-slate-700 mt-0.5">2:25:00</div>
-                <div class="text-[9px] text-slate-400">(6:51/km)</div>
+                <div class="text-sm font-bold text-slate-700 mt-0.5">2:25:32</div>
+                <div class="text-[9px] text-slate-400">(6:54/km)</div>
             </div>
             <div class="p-2 bg-slate-50 rounded-xl">
-                <div class="text-[10px] text-slate-500 font-bold uppercase">現在の2km MAX</div>
+                <div class="text-[10px] text-slate-500 font-bold uppercase">2KM 9/26 MAX</div>
                 <div class="text-sm font-bold text-slate-700 mt-0.5">11分40秒</div>
                 <div class="text-[9px] text-slate-400">(5:50/km)</div>
             </div>
@@ -69,19 +67,171 @@
         </section>
 
         <!-- タブ切り替えバー -->
-        <div class="flex border-b border-slate-200 bg-white rounded-xl shadow-sm px-2 text-sm font-medium text-slate-500">
-            <button onclick="switchTab('training')" id="tab-btn-training" class="flex-1 py-3 text-center tab-active flex items-center justify-center gap-1.5">
-                <i data-lucide="calendar" class="w-4 h-4"></i> 練習メニュー
+        <div class="flex border-b border-slate-200 bg-white rounded-xl shadow-sm px-1 text-xs font-medium text-slate-500">
+            <button onclick="switchTab('calendar')" id="tab-btn-calendar" class="flex-1 py-3 text-center tab-active flex items-center justify-center gap-1">
+                <i data-lucide="calendar" class="w-3.5 h-3.5"></i> カレンダー
             </button>
-            <button onclick="switchTab('strategy')" id="tab-btn-strategy" class="flex-1 py-3 text-center flex items-center justify-center gap-1.5">
-                <i data-lucide="flag" class="w-4 h-4"></i> レース攻略
+            <button onclick="switchTab('training')" id="tab-btn-training" class="flex-1 py-3 text-center flex items-center justify-center gap-1">
+                <i data-lucide="check-square" class="w-3.5 h-3.5"></i> メニュー
+            </button>
+            <button onclick="switchTab('strategy')" id="tab-btn-strategy" class="flex-1 py-3 text-center flex items-center justify-center gap-1">
+                <i data-lucide="flag" class="w-3.5 h-3.5"></i> レース攻略
             </button>
         </div>
 
-        <!-- ================= タブ1: 練習メニュー ================= -->
-        <div id="tab-training" class="space-y-4">
+        <!-- ================= タブ1: カレンダー表示 (初期表示) ================= -->
+        <div id="tab-calendar" class="space-y-4">
+            
+            <!-- 凡例 (色の違いを明記) -->
+            <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 text-xs space-y-1.5">
+                <div class="flex justify-around items-center">
+                    <div class="flex items-center gap-1"><span class="w-3 h-3 bg-orange-500 rounded-full inline-block"></span>メイン練習日</div>
+                    <div class="flex items-center gap-1"><span class="w-3 h-3 bg-emerald-500 rounded-full inline-block"></span>調整ラン日</div>
+                    <div class="flex items-center gap-1"><span class="w-3 h-3 bg-rose-100 border border-rose-300 rounded-full inline-block"></span>不可</div>
+                    <div class="flex items-center gap-1"><span class="w-3 h-3 bg-slate-100 rounded-full inline-block"></span>休憩</div>
+                </div>
+               
+            </div>
 
-            <!-- 全体進捗バー -->
+            <!-- 10月カレンダー -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
+                <h3 class="font-bold text-sm text-slate-700 mb-3 flex items-center gap-1.5">
+                    <i data-lucide="calendar-days" class="w-4 h-4 text-orange-500"></i> 10月 (スタート週)
+                </h3>
+                <div class="grid grid-cols-7 gap-1 text-center text-xs">
+                    <div class="text-red-500 font-bold py-1">日</div>
+                    <div class="text-slate-500 font-bold py-1">月</div>
+                    <div class="text-slate-500 font-bold py-1">火</div>
+                    <div class="text-slate-500 font-bold py-1">水</div>
+                    <div class="text-slate-500 font-bold py-1">木</div>
+                    <div class="text-slate-500 font-bold py-1">金</div>
+                    <div class="text-blue-500 font-bold py-1">土</div>
+
+                    <div class="p-1 min-h-[52px] bg-slate-50/50 rounded text-slate-300">18</div>
+                    <div class="p-1 min-h-[52px] bg-slate-50/50 rounded text-slate-300">19</div>
+                    <div class="p-1 min-h-[52px] bg-slate-50/50 rounded text-slate-300">20</div>
+                    <div class="p-1 min-h-[52px] bg-slate-50/50 rounded text-slate-300">21</div>
+                    <div class="p-1 min-h-[52px] bg-slate-50/50 rounded text-slate-300">22</div>
+                    <div class="p-1 min-h-[52px] bg-slate-50/50 rounded text-slate-300">23</div>
+                    <!-- 10/24 開始 -->
+                    <div class="p-1 min-h-[52px] bg-orange-50 border border-orange-200 rounded font-bold text-orange-700">
+                        24<div class="text-[9px] font-normal leading-tight text-orange-600 mt-0.5">6~8km</div>
+                    </div>
+
+                    <div class="p-1 min-h-[52px] bg-slate-50 rounded text-slate-600">25</div>
+                    <div class="p-1 min-h-[52px] bg-orange-50 border border-orange-200 rounded font-bold text-orange-700">
+                        26<div class="text-[9px] font-normal leading-tight text-orange-600 mt-0.5">400m×5</div>
+                    </div>
+                    <!-- 10/27 不可 -->
+                    <div class="p-1 min-h-[52px] bg-rose-50 border border-rose-200 rounded text-rose-600">
+                        27<div class="text-[11px] font-bold mt-1 text-rose-500">❌</div>
+                    </div>
+                    <div class="p-1 min-h-[52px] bg-orange-50 border border-orange-200 rounded text-orange-700">
+                        28<div class="text-[9px] font-normal leading-tight text-orange-600 mt-0.5">3~4km</div>
+                    </div>
+                    <!-- 10/29 不可 -->
+                    <div class="p-1 min-h-[52px] bg-rose-50 border border-rose-200 rounded text-rose-600">
+                        29<div class="text-[11px] font-bold mt-1 text-rose-500">❌</div>
+                    </div>
+                    <!-- 10/30 不可 -->
+                    <div class="p-1 min-h-[52px] bg-rose-50 border border-rose-200 rounded text-rose-600">
+                        30<div class="text-[11px] font-bold mt-1 text-rose-500">❌</div>
+                    </div>
+                    <div class="p-1 min-h-[52px] bg-slate-50 rounded text-slate-600">
+                        31<div class="text-[9px] text-slate-400 mt-0.5">予備日</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 11月カレンダー -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
+                <h3 class="font-bold text-sm text-slate-700 mb-3 flex items-center gap-1.5">
+                    <i data-lucide="calendar-days" class="w-4 h-4 text-orange-500"></i> 11月 (本番月)
+                </h3>
+                <div class="grid grid-cols-7 gap-1 text-center text-xs">
+                    <div class="text-red-500 font-bold py-1">日</div>
+                    <div class="text-slate-500 font-bold py-1">月</div>
+                    <div class="text-slate-500 font-bold py-1">火</div>
+                    <div class="text-slate-500 font-bold py-1">水</div>
+                    <div class="text-slate-500 font-bold py-1">木</div>
+                    <div class="text-slate-500 font-bold py-1">金</div>
+                    <div class="text-blue-500 font-bold py-1">土</div>
+
+                    <div class="p-1 min-h-[52px] bg-orange-50 border border-orange-200 rounded font-bold text-orange-700">
+                        1<div class="text-[9px] font-normal leading-tight text-orange-600 mt-0.5">8km</br>ビルド</div>
+                    </div>
+                    <div class="p-1 min-h-[52px] bg-slate-50 rounded text-slate-600">2</div>
+                    <div class="p-1 min-h-[52px] bg-orange-50 border border-orange-200 rounded text-orange-700">
+                        3<div class="text-[9px] font-normal leading-tight text-orange-600 mt-0.5">1km×2</div>
+                    </div>
+                    <div class="p-1 min-h-[52px] bg-slate-50 rounded text-slate-600">4</div>
+                    <div class="p-1 min-h-[52px] bg-slate-50 rounded text-slate-600">5</div>
+                    <div class="p-1 min-h-[52px] bg-slate-50 rounded text-slate-600">6</div>
+                    <div class="p-1 min-h-[52px] bg-orange-50 border border-orange-200 rounded font-bold text-orange-700">
+                        7<div class="text-[9px] font-normal leading-tight text-orange-600 mt-0.5">7~8km</br>持続</div>
+                    </div>
+
+                    <div class="p-1 min-h-[52px] bg-red-50 border border-red-300 rounded font-bold text-red-700">
+                        8<div class="text-[9px] font-bold leading-tight text-red-600 mt-0.5">2km TT!</div>
+                    </div>
+                    <div class="p-1 min-h-[52px] bg-slate-50 rounded text-slate-600">9</div>
+                    <div class="p-1 min-h-[52px] bg-orange-50 border border-orange-200 rounded text-orange-700">
+                        10<div class="text-[9px] font-normal leading-tight text-orange-600 mt-0.5">800m×3</div>
+                    </div>
+                    <div class="p-1 min-h-[52px] bg-slate-50 rounded text-slate-600">11</div>
+                    <div class="p-1 min-h-[52px] bg-orange-50 border border-orange-200 rounded text-orange-700">
+                        12<div class="text-[9px] font-normal leading-tight text-orange-600 mt-0.5">3km</br>ジョグ</div>
+                    </div>
+                    <!-- 11/13, 14, 15 不可 -->
+                    <div class="p-1 min-h-[52px] bg-rose-50 border border-rose-200 rounded text-rose-600">
+                        13<div class="text-[11px] font-bold mt-1 text-rose-500">❌</div>
+                    </div>
+                    <div class="p-1 min-h-[52px] bg-rose-50 border border-rose-200 rounded text-rose-600">
+                        14<div class="text-[11px] font-bold mt-1 text-rose-500">❌</div>
+                    </div>
+
+                    <div class="p-1 min-h-[52px] bg-rose-50 border border-rose-200 rounded text-rose-600">
+                        15<div class="text-[11px] font-bold mt-1 text-rose-500">❌</div>
+                    </div>
+                    <div class="p-1 min-h-[52px] bg-slate-50 rounded text-slate-600">16</div>
+                    <div class="p-1 min-h-[52px] bg-slate-50 rounded text-slate-600">17</div>
+                    <div class="p-1 min-h-[52px] bg-emerald-50 border border-emerald-200 rounded text-emerald-700">
+                        18<div class="text-[9px] font-normal leading-tight text-emerald-600 mt-0.5">1km×2</div>
+                    </div>
+                    <div class="p-1 min-h-[52px] bg-slate-50 rounded text-slate-600">19</div>
+                    <div class="p-1 min-h-[52px] bg-slate-50 rounded text-slate-600">20</div>
+                    <!-- 11/21 不可 -->
+                    <div class="p-1 min-h-[52px] bg-rose-50 border border-rose-200 rounded text-rose-600">
+                        21<div class="text-[11px] font-bold mt-1 text-rose-500">❌</div>
+                    </div>
+
+                    <div class="p-1 min-h-[52px] bg-emerald-50 border border-emerald-200 rounded text-emerald-700">
+                        22<div class="text-[9px] font-normal leading-tight text-emerald-600 mt-0.5">5km調整</div>
+                    </div>
+                    <div class="p-1 min-h-[52px] bg-slate-50 rounded text-slate-600">23</div>
+                    <div class="p-1 min-h-[52px] bg-slate-50 rounded text-slate-600">24</div>
+                    <div class="p-1 min-h-[52px] bg-emerald-50 border border-emerald-200 rounded text-emerald-700">
+                        25<div class="text-[9px] font-normal leading-tight text-emerald-600 mt-0.5">2km調整</div>
+                    </div>
+                    <!-- 11/26 不可 -->
+                    <div class="p-1 min-h-[52px] bg-rose-50 border border-rose-200 rounded text-rose-600">
+                        26<div class="text-[11px] font-bold mt-1 text-rose-500">❌</div>
+                    </div>
+                    <div class="p-1 min-h-[52px] bg-slate-50 rounded text-slate-600">
+                        27<div class="text-[9px] text-slate-500 mt-0.5">前日休養</div>
+                    </div>
+                    <!-- 11/28 本番 -->
+                    <div class="p-1 min-h-[52px] bg-amber-500 text-white font-black rounded shadow-md border-2 border-amber-600">
+                        28<div class="text-[9px] font-extrabold mt-0.5">🎽駅伝🎽</br>🎽本番🎽</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= タブ2: 練習チェックリスト ================= -->
+        <div id="tab-training" class="space-y-4 hidden">
+
             <div class="bg-white p-3.5 rounded-xl shadow-sm border border-slate-100">
                 <div class="flex justify-between text-xs text-slate-600 font-bold mb-1.5">
                     <span>全体トレーニング消化率</span>
@@ -97,21 +247,20 @@
                 <div class="flex justify-between items-center border-b border-slate-100 pb-2">
                     <div>
                         <span class="text-[11px] font-bold text-orange-500 bg-orange-50 px-2 py-0.5 rounded-md">第1週</span>
-                        <h2 class="text-base font-bold text-slate-800">スピードの基礎・動き作り</h2>
+                        <h2 class="text-base font-bold text-slate-800">スピード慣れ＆土曜長距離</h2>
                     </div>
-                    <span class="text-xs font-semibold text-slate-400">10/21〜10/27</span>
+                    <span class="text-xs font-semibold text-slate-400">10/24〜10/31</span>
                 </div>
-                <p class="text-xs text-slate-500 italic">2km MAX（5:50/km）の壁を壊し、速い動きに神経を慣らす！</p>
                 
                 <div class="space-y-2">
                     <label class="flex items-start gap-3 p-2.5 rounded-xl bg-slate-50 active:bg-slate-100 transition cursor-pointer">
                         <input type="checkbox" data-id="w1d1" onchange="toggleTask(this)" class="mt-1 w-5 h-5 accent-orange-500 rounded">
                         <div class="flex-1 text-xs">
                             <div class="flex justify-between font-bold text-slate-700">
-                                <span>火：ショートインターバル</span>
-                                <span class="text-orange-600 font-extrabold">400m × 5本</span>
+                                <span>10/24(土)：スタミナ基礎</span>
+                                <span class="text-slate-600">6〜8km 長距離ジョグ</span>
                             </div>
-                            <div class="text-slate-500 mt-0.5">目標: 1本1分55秒〜2分00秒 (4:45〜5:00/km) / つなぎジョグ2分</div>
+                            <div class="text-slate-500 mt-0.5">目安: 6:30〜6:50/km（会話できる無理のないペース）</div>
                         </div>
                     </label>
 
@@ -119,10 +268,10 @@
                         <input type="checkbox" data-id="w1d2" onchange="toggleTask(this)" class="mt-1 w-5 h-5 accent-orange-500 rounded">
                         <div class="flex-1 text-xs">
                             <div class="flex justify-between font-bold text-slate-700">
-                                <span>木：ベース構築＋刺激</span>
-                                <span class="text-slate-600">3〜4km ジョグ</span>
+                                <span>10/26(月)：ショートインターバル</span>
+                                <span class="text-orange-600 font-extrabold">400m × 5本</span>
                             </div>
-                            <div class="text-slate-500 mt-0.5">仕上げに「流し（50mダッシュ）」× 3本でフォーム調整</div>
+                            <div class="text-slate-500 mt-0.5">目標: 1本1分55秒〜2分00秒 (4:45〜5:00/km) / 間ジョグ2分</div>
                         </div>
                     </label>
 
@@ -130,10 +279,10 @@
                         <input type="checkbox" data-id="w1d3" onchange="toggleTask(this)" class="mt-1 w-5 h-5 accent-orange-500 rounded">
                         <div class="flex-1 text-xs">
                             <div class="flex justify-between font-bold text-slate-700">
-                                <span>土/日：持続走</span>
-                                <span class="text-slate-600">5km 持続走</span>
+                                <span>10/28(水) or 31(土)：ペース走</span>
+                                <span class="text-slate-600">3〜4km ペース走</span>
                             </div>
-                            <div class="text-slate-500 mt-0.5">目安: 5:30〜6:00/km（少し余裕のあるペースを維持）</div>
+                            <div class="text-slate-500 mt-0.5">目安: 5:40〜5:50/km（ラストに50m流し×3本追加）</div>
                         </div>
                     </label>
                 </div>
@@ -144,21 +293,20 @@
                 <div class="flex justify-between items-center border-b border-slate-100 pb-2">
                     <div>
                         <span class="text-[11px] font-bold text-orange-500 bg-orange-50 px-2 py-0.5 rounded-md">第2週</span>
-                        <h2 class="text-base font-bold text-slate-800">実践的なペース走</h2>
+                        <h2 class="text-base font-bold text-slate-800">実践ペース走＆休日ビルドアップ</h2>
                     </div>
-                    <span class="text-xs font-semibold text-slate-400">10/28〜11/3</span>
+                    <span class="text-xs font-semibold text-slate-400">11/1〜11/7</span>
                 </div>
-                <p class="text-xs text-slate-500 italic">2.4kmの距離を意識。長めの距離を目標ペースに寄せる！</p>
 
                 <div class="space-y-2">
                     <label class="flex items-start gap-3 p-2.5 rounded-xl bg-slate-50 active:bg-slate-100 transition cursor-pointer">
                         <input type="checkbox" data-id="w2d1" onchange="toggleTask(this)" class="mt-1 w-5 h-5 accent-orange-500 rounded">
                         <div class="flex-1 text-xs">
                             <div class="flex justify-between font-bold text-slate-700">
-                                <span>火：レペティション</span>
-                                <span class="text-orange-600 font-extrabold">1km × 2本</span>
+                                <span>11/1(日)：長距離ビルドアップ</span>
+                                <span class="text-slate-600">8km 長距離走</span>
                             </div>
-                            <div class="text-slate-500 mt-0.5">目標: 1本5分10秒〜5分20秒 (休憩3分)</div>
+                            <div class="text-slate-500 mt-0.5">最初6分30秒で入り、ラスト1kmだけ5分30秒まで上げる</div>
                         </div>
                     </label>
 
@@ -166,10 +314,10 @@
                         <input type="checkbox" data-id="w2d2" onchange="toggleTask(this)" class="mt-1 w-5 h-5 accent-orange-500 rounded">
                         <div class="flex-1 text-xs">
                             <div class="flex justify-between font-bold text-slate-700">
-                                <span>木：ミドルペース走</span>
-                                <span class="text-slate-600">3km ペース走</span>
+                                <span>11/3(火/祝) or 4(水)：1kmレペ</span>
+                                <span class="text-orange-600 font-extrabold">1km × 2本</span>
                             </div>
-                            <div class="text-slate-500 mt-0.5">目安: 5:40〜5:50/km (失速せずに一定ペースで走る)</div>
+                            <div class="text-slate-500 mt-0.5">目標: 5分10秒〜5分20秒/本 (休憩3分)</div>
                         </div>
                     </label>
 
@@ -177,10 +325,10 @@
                         <input type="checkbox" data-id="w2d3" onchange="toggleTask(this)" class="mt-1 w-5 h-5 accent-orange-500 rounded">
                         <div class="flex-1 text-xs">
                             <div class="flex justify-between font-bold text-slate-700">
-                                <span>土/日：距離消化</span>
-                                <span class="text-slate-600">6km 有酸素ジョグ</span>
+                                <span>11/7(土)：長距離持続走</span>
+                                <span class="text-slate-600">7〜8km 持続走</span>
                             </div>
-                            <div class="text-slate-500 mt-0.5">スタミナの底上げ用。おしゃべりできる快適ペースでOK</div>
+                            <div class="text-slate-500 mt-0.5">目安: 6:00〜6:20/km 一定のペースを保つ</div>
                         </div>
                     </label>
                 </div>
@@ -193,27 +341,15 @@
                         <span class="text-[11px] font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded-md">第3週</span>
                         <h2 class="text-base font-bold text-slate-800">ピーク追い込み（最重要）</h2>
                     </div>
-                    <span class="text-xs font-semibold text-slate-400">11/4〜11/10</span>
+                    <span class="text-xs font-semibold text-slate-400">11/8〜11/15</span>
                 </div>
-                <p class="text-xs text-slate-500 italic">ここをクリアすると走力が跳ね上がります！自信を持って挑む！</p>
-
+                
                 <div class="space-y-2">
                     <label class="flex items-start gap-3 p-2.5 rounded-xl bg-slate-50 active:bg-slate-100 transition cursor-pointer">
                         <input type="checkbox" data-id="w3d1" onchange="toggleTask(this)" class="mt-1 w-5 h-5 accent-orange-500 rounded">
                         <div class="flex-1 text-xs">
                             <div class="flex justify-between font-bold text-slate-700">
-                                <span>火：高強度インターバル</span>
-                                <span class="text-red-600 font-extrabold">800m × 3本</span>
-                            </div>
-                            <div class="text-slate-500 mt-0.5">目標: 4分10秒〜4分20秒/本 (約5:15/km換算) (休憩2分半)</div>
-                        </div>
-                    </label>
-
-                    <label class="flex items-start gap-3 p-2.5 rounded-xl bg-slate-50 active:bg-slate-100 transition cursor-pointer">
-                        <input type="checkbox" data-id="w3d2" onchange="toggleTask(this)" class="mt-1 w-5 h-5 accent-orange-500 rounded">
-                        <div class="flex-1 text-xs">
-                            <div class="flex justify-between font-bold text-slate-700">
-                                <span>木：自己ベスト更新狙い</span>
+                                <span>11/8(日)：TT（自己ベスト挑戦）</span>
                                 <span class="text-red-600 font-extrabold">2km タイムトライアル</span>
                             </div>
                             <div class="text-slate-500 mt-0.5">目標: 11分20秒〜11分30秒 (MAX記録更新を狙う！)</div>
@@ -221,13 +357,24 @@
                     </label>
 
                     <label class="flex items-start gap-3 p-2.5 rounded-xl bg-slate-50 active:bg-slate-100 transition cursor-pointer">
+                        <input type="checkbox" data-id="w3d2" onchange="toggleTask(this)" class="mt-1 w-5 h-5 accent-orange-500 rounded">
+                        <div class="flex-1 text-xs">
+                            <div class="flex justify-between font-bold text-slate-700">
+                                <span>11/10(火)：インターバル</span>
+                                <span class="text-red-600 font-extrabold">800m × 3本</span>
+                            </div>
+                            <div class="text-slate-500 mt-0.5">目標: 4分10秒〜4分20秒/本 (約5:15/km) (休憩2分半)</div>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-2.5 rounded-xl bg-slate-50 active:bg-slate-100 transition cursor-pointer">
                         <input type="checkbox" data-id="w3d3" onchange="toggleTask(this)" class="mt-1 w-5 h-5 accent-orange-500 rounded">
                         <div class="flex-1 text-xs">
                             <div class="flex justify-between font-bold text-slate-700">
-                                <span>土/日：リカバリー</span>
-                                <span class="text-slate-600">5km 軽めジョグ</span>
+                                <span>11/12(木)：直前軽めラン</span>
+                                <span class="text-slate-600">3km ジョグ ＋ 流し2本</span>
                             </div>
-                            <div class="text-slate-500 mt-0.5">追い込みの疲労を翌週に残さないようリラックスして走る</div>
+                            <div class="text-slate-500 mt-0.5">ジョグ目安: 6分30秒。流し:5分00秒ギリ</div>
                         </div>
                     </label>
                 </div>
@@ -238,21 +385,20 @@
                 <div class="flex justify-between items-center border-b border-slate-100 pb-2">
                     <div>
                         <span class="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">第4週</span>
-                        <h2 class="text-base font-bold text-slate-800">調整＆コンディショニング</h2>
+                        <h2 class="text-base font-bold text-slate-800">調整＆最終コンディショニング</h2>
                     </div>
-                    <span class="text-xs font-semibold text-slate-400">11/11〜11/27</span>
+                    <span class="text-xs font-semibold text-slate-400">11/16〜11/27</span>
                 </div>
-                <p class="text-xs text-slate-500 italic">量をガクッと減らして疲労をゼロにし、足にキレを戻す！</p>
-
+                
                 <div class="space-y-2">
                     <label class="flex items-start gap-3 p-2.5 rounded-xl bg-slate-50 active:bg-slate-100 transition cursor-pointer">
                         <input type="checkbox" data-id="w4d1" onchange="toggleTask(this)" class="mt-1 w-5 h-5 accent-orange-500 rounded">
                         <div class="flex-1 text-xs">
                             <div class="flex justify-between font-bold text-slate-700">
-                                <span>直前週(11/11〜17)</span>
-                                <span class="text-emerald-600 font-bold">1km × 2本 ＋ 軽めジョグ</span>
+                                <span>11/18(水) or 19(木)</span>
+                                <span class="text-emerald-600 font-bold">1km × 2本 （5:15/km）</span>
                             </div>
-                            <div class="text-slate-500 mt-0.5">ペース: 5:15/km（週2回程度に減らし、刺激のみ与える）</div>
+                            <div class="text-slate-500 mt-0.5">刺激入れ。疲労を残さない程度にサッと走る</div>
                         </div>
                     </label>
 
@@ -260,10 +406,10 @@
                         <input type="checkbox" data-id="w4d2" onchange="toggleTask(this)" class="mt-1 w-5 h-5 accent-orange-500 rounded">
                         <div class="flex-1 text-xs">
                             <div class="flex justify-between font-bold text-slate-700">
-                                <span>11/26(前々日)</span>
-                                <span class="text-emerald-600 font-bold">2km ジョグ ＋ 流し2本</span>
+                                <span>11/22(日) or 23(月/祝)</span>
+                                <span class="text-emerald-600 font-bold">5km 調整ジョグ</span>
                             </div>
-                            <div class="text-slate-500 mt-0.5">最後に短くサッと走って動きの最終チェック</div>
+                            <div class="text-slate-500 mt-0.5">最後の長めラン。リラックスして気持ちよく走る</div>
                         </div>
                     </label>
 
@@ -271,10 +417,10 @@
                         <input type="checkbox" data-id="w4d3" onchange="toggleTask(this)" class="mt-1 w-5 h-5 accent-orange-500 rounded">
                         <div class="flex-1 text-xs">
                             <div class="flex justify-between font-bold text-slate-700">
-                                <span>11/27(前日)</span>
-                                <span class="text-emerald-600 font-bold">完全休養</span>
+                                <span>11/25(水)</span>
+                                <span class="text-emerald-600 font-bold">2km ジョグ ＋ 流し2本</span>
                             </div>
-                            <div class="text-slate-500 mt-0.5">ストレッチをして早めに就寝！水分補給を意識</div>
+                            <div class="text-slate-500 mt-0.5">大会前に動きを確認して準備完了！</div>
                         </div>
                     </label>
                 </div>
@@ -282,10 +428,9 @@
 
         </div>
 
-        <!-- ================= タブ2: レース攻略法 ================= -->
+        <!-- ================= タブ3: レース攻略法 ================= -->
         <div id="tab-strategy" class="space-y-4 hidden">
 
-            <!-- 2.4km ペース配分ガイド -->
             <div class="bg-gradient-to-br from-amber-500 to-orange-600 text-white p-4 rounded-2xl shadow-md space-y-3">
                 <h3 class="font-black text-lg flex items-center gap-2">
                     🎯 2.4km 目標タイム内訳 (12:00)
@@ -309,9 +454,7 @@
                 </div>
             </div>
 
-            <!-- ステップ別戦略 -->
             <div class="space-y-3">
-                
                 <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex items-start gap-3">
                     <div class="bg-orange-100 text-orange-600 p-2.5 rounded-xl font-bold text-sm shrink-0">
                         序盤
@@ -319,7 +462,7 @@
                     <div class="space-y-1 text-xs">
                         <h4 class="font-bold text-sm text-slate-800">0〜300m：周りに惑わされない</h4>
                         <p class="text-slate-600 leading-relaxed">
-                            たすきを貰うとアドレナリンでオーバーペース（キロ4分半など）になりがちです。最初の300mは**「ちょっと遅いかも」**と感じるくらいで意識して抑えましょう。
+                            たすきを貰うとアドレナリンでオーバーペースになりがちです。最初の300mは「ちょっと遅いかも」と感じるくらいで意識して抑えましょう。
                         </p>
                     </div>
                 </div>
@@ -331,7 +474,7 @@
                     <div class="space-y-1 text-xs">
                         <h4 class="font-bold text-sm text-slate-800">1km〜2km：腕振りでピッチを落とさない</h4>
                         <p class="text-slate-600 leading-relaxed">
-                            一番キツくなるポイントです。足が出なくなったら**「腕を後ろにしっかり引く」**ことに集中してください。腕を振れば自動的に足が前に出ます。
+                            一番キツくなるポイントです。「腕を後ろにしっかり引く」ことに集中してください。腕を振れば自動的に足が前に出ます。
                         </p>
                     </div>
                 </div>
@@ -343,28 +486,23 @@
                     <div class="space-y-1 text-xs">
                         <h4 class="font-bold text-sm text-slate-800">ラスト400m：出し切るスパート</h4>
                         <p class="text-slate-600 leading-relaxed">
-                            残り400m（トラック1周分）が見えたら切り替え！前のランナーを1人でも拾う気持ちで、ラストスパートをかけて次走者へたすきを繋ぎましょう！
+                            残り400mが見えたら切り替え！持てる力を全開で出し切って次走者へたすきを繋ぎましょう！
                         </p>
                     </div>
                 </div>
-
             </div>
 
-            <!-- 当日の心得 -->
             <div class="bg-slate-800 text-white rounded-2xl p-4 space-y-2 text-xs">
                 <h4 class="font-bold text-sm text-orange-400 flex items-center gap-1.5">
                     <i data-lucide="check-circle-2" class="w-4 h-4"></i> 当日ウォーミングアップのコツ
                 </h4>
                 <ul class="list-disc list-inside space-y-1 text-slate-300">
-                    <li>出走 **60分前**：軽くストレッチ＆10分ゆっくりジョグ</li>
-                    <li>出走 **20分前**：流し（80%くらいのダッシュ）を2〜3本行い心拍数を上げておく</li>
-                    <li>直前の冷えに注意。直前まで温かい服装をキープ！</li>
+                    直前の冷えに注意。直前まで温かい服装をキープ！
                 </ul>
             </div>
 
         </div>
 
-        <!-- データリセットボタン -->
         <div class="text-center pt-4">
             <button onclick="resetData()" class="text-xs text-slate-400 hover:text-slate-600 underline">
                 進捗データをリセットする
@@ -374,41 +512,44 @@
     </main>
 
     <script>
-        // Lucideアイコン初期化
         lucide.createIcons();
 
-        // タブ切り替え
         function switchTab(tabName) {
             const trainingTab = document.getElementById('tab-training');
+            const calendarTab = document.getElementById('tab-calendar');
             const strategyTab = document.getElementById('tab-strategy');
+            
             const btnTraining = document.getElementById('tab-btn-training');
+            const btnCalendar = document.getElementById('tab-btn-calendar');
             const btnStrategy = document.getElementById('tab-btn-strategy');
 
-            if (tabName === 'training') {
+            trainingTab.classList.add('hidden');
+            calendarTab.classList.add('hidden');
+            strategyTab.classList.add('hidden');
+
+            btnTraining.classList.remove('tab-active');
+            btnCalendar.classList.remove('tab-active');
+            btnStrategy.classList.remove('tab-active');
+
+            if (tabName === 'calendar') {
+                calendarTab.classList.remove('hidden');
+                btnCalendar.classList.add('tab-active');
+            } else if (tabName === 'training') {
                 trainingTab.classList.remove('hidden');
-                strategyTab.classList.add('hidden');
                 btnTraining.classList.add('tab-active');
-                btnStrategy.classList.remove('tab-active');
             } else {
-                trainingTab.classList.add('hidden');
                 strategyTab.classList.remove('hidden');
                 btnStrategy.classList.add('tab-active');
-                btnTraining.classList.remove('tab-active');
             }
         }
 
-        // チェック状態の保存と進捗計算 (LocalStorage使用)
         function toggleTask(checkbox) {
             const id = checkbox.getAttribute('data-id');
             const isChecked = checkbox.checked;
-
-            // ローカルストレージに保存
             localStorage.setItem('ekiden_task_' + id, isChecked ? 'true' : 'false');
-
             updateProgress();
         }
 
-        // 状態の復元と進捗更新
         function updateProgress() {
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
             let checkedCount = 0;
@@ -429,7 +570,6 @@
                 }
             });
 
-            // プログレス計算
             const total = checkboxes.length;
             const percent = Math.round((checkedCount / total) * 100);
 
@@ -438,7 +578,6 @@
             document.getElementById('progress-bar').style.width = percent + '%';
         }
 
-        // データリセット
         function resetData() {
             if (confirm('練習の進捗データをリセットしますか？')) {
                 const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -451,7 +590,6 @@
             }
         }
 
-        // ページ読み込み時に実行
         window.onload = function() {
             updateProgress();
         };
